@@ -158,7 +158,10 @@ const mainContent = () => {
                     <FormItem className="w-full">
                       <FormLabel className="text-lg font-bold text-gray-800">Holiday Type</FormLabel>
                       <FormControl>
-                        <Select onValueChange={field.onChange}>
+                        <Select onValueChange={(value)=>{
+                          setHolidayType(value)
+                        }}
+                        value={holidayType}>
                           <SelectTrigger className="border-2 border-gray-700 rounded-lg shadow-md">
                             <SelectValue placeholder="Select a holiday" />
                           </SelectTrigger>
