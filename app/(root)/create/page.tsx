@@ -13,15 +13,19 @@ import {
 } from "@/components/ui/select";
 import {Textarea} from "@/components/ui/textarea";
 import HeroButton from "@/components/HeroButton";
+import User from "@/lib/database/models/user.model"
 import {Input} from "@/components/ui/input";
 import CreateButton from "@/components/CreateButton";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
 import Form from "next/form";
 import {useRouter} from "next/navigation";
-import {createPrompt} from "@/lib/actions/user.actions";
+import mongoose, {Schema, model, models} from 'mongoose';
 import { useUser } from '@clerk/clerk-react';
-import {createPromptType} from "@/constants/types";
+import connectToDB from "@/lib/database/mongoose";
+import {connectToDatabase, createPrompt} from "@/lib/actions/user.actions";
+
+
 
 
 
@@ -62,27 +66,22 @@ const mainContent = () => {
 
   const clerkId = user?.id as string
 
-  const formSchema = z.object({
-    gift: z.string().min(1, "This field is required").max(100, "Maximum length is 100"),
-    age: z.number().min(0,  "Number must be at least 1" ).max(150, "Number must be at most 2" ),
-    gender: z.string().min(1, "This field is required").max(100, "Maximum length is 100"),
-    personality: z.string().min(1, "This field is required").max(100, "Maximum length is 100"),
-    hint: z.string().min(10, "This field is required").max(100, "Maximum length is 200"),
-    suggestion:z.string().min(5, "minimum is 5 words").max(1000, "maximum is 1000 words")
-  });
 
-  const form = useForm({ defaultValues: defaultValues, resolver: zodResolver(formSchema)});
+  // const formSchema = z.object({
+  //   gift: z.string().min(1, "This field is required").max(100, "Maximum length is 100"),
+  //   age: z.number().min(0,  "Number must be at least 1" ).max(150, "Number must be at most 2" ),
+  //   gender: z.string().min(1, "This field is required").max(100, "Maximum length is 100"),
+  //   personality: z.string().min(1, "This field is required").max(100, "Maximum length is 100"),
+  //   hint: z.string().min(10, "This field is required").max(100, "Maximum length is 200"),
+  //   suggestion:z.string().min(5, "minimum is 5 words").max(1000, "maximum is 1000 words")
+  // });
 
-  const onSubmit = (data: createPromptType) => {
-    console.log("submit button triggered")
-    console.log(data);
-    // createPrompt(clerkId, data)
-    router.push("/profile")
-  };
+  const form = useForm({ defaultValues: defaultValues});
+  // , resolver: zodResolver(formSchema)
 
   return (
       <FormProvider {...form}>
-        <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-8 bg-gray-100 rounded-lg shadow-lg">
+        <form className="p-6 space-y-8 bg-gray-100 rounded-lg shadow-lg">
           <h1 className="text-3xl font-bold text-center text-gray-900">Gift Form</h1>
           <p className="text-center text-gray-600">
             Fill out the form below to customize your gift details. Let your creativity shine!
@@ -309,7 +308,19 @@ const mainContent = () => {
           <div className="text-center justify-center flex">
             <CreateButton
                 name={submitting ? 'SUBMITTING' : 'SUBMIT'}
-                type="submit"/>
+                type="button"
+                onClick={async () => {
+                  console.log("submit button triggered")
+                  setSubmitting(true)
+                  const content = {holidayType, age, gender, personality, hint, ans}
+                  console.log(clerkId)
+                  console.log(content)
+                  router.push('/profile')
+                  await connectToDatabase()
+                  console.log(models)
+                  await createPrompt(clerkId, content)
+                  setSubmitting(false)
+                }}/>
           </div>
         </form>
       </FormProvider>

@@ -2,29 +2,29 @@
 
 import mongoose, {Mongoose} from 'mongoose';
 
-const mongodb_url: string = process.env.MONGODB_URL!
+const MONGODB_URL: string = process.env.MONGODB_URL!;
+console.log('MongoDB connection url: ', MONGODB_URL);
 
-interface mongooseConnection {
-  promise: Promise<Mongoose> | null,
-  connection: Mongoose | null
+interface MongooseConnection {
+  connection: Mongoose|null;
+  promise: Promise<Mongoose>|null;
 }
 
-let cache: mongooseConnection = (global as any).mongoose || {promise: null, connection: null}
+let cache: MongooseConnection = (global as any).mongoose || {connection: null, promise: null}
 
-export default async function connectToDB() {
-  if(cache.connection) return cache.connection
-  if(!mongodb_url) throw new Error('MongoDB URL is missing')
+const connectToDB = async() => {
+  if(cache.connection) return cache.connection;
+  if(!MONGODB_URL) throw new Error('Missing MONGODB_URL');
   if(!cache.promise){
-    cache.promise = mongoose.connect(mongodb_url, {dbName: 'giftGenerator', bufferCommands: false})
+    cache.promise = mongoose.connect(MONGODB_URL, {dbName: 'giftGenerator', bufferCommands: false})
   }
   cache.connection = await cache.promise
-  console.log("connect to MongoDB successfully")
+  console.log(cache.connection)
+  cache.connection && console.log("connect to DB successfully")
   return cache.connection
 }
 
-
-
-
+export default connectToDB
 
 
 

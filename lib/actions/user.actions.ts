@@ -1,9 +1,16 @@
+'use server'
+
 import {handleError} from "@/lib/utils"
 import {createPromptType, createUserType, updateUserType} from "@/constants/types"
 import connectToDB from "@/lib/database/mongoose";
-import User from "@/lib/database/models/user";
-import Prompt from "@/lib/database/models/prompt";
+import User from "@/lib/database/models/user.model";
+import Prompt from "@/lib/database/models/prompt.model";
+import {Schema, model, models} from 'mongoose';
 
+
+export async function connectToDatabase(){
+  await connectToDB()
+}
 
 export async function createUser(user: createUserType){
   try{
@@ -39,7 +46,7 @@ export async function updateUser(clerkId: string, user: updateUserType){
     if(!updatedUser){
       throw new Error("User not found")
     }
-    return updatedUser
+    return JSON.parse(JSON.stringify(updatedUser));
   }catch(err){
     handleError(err)
   }
@@ -51,7 +58,7 @@ export async function deleteUser(clerkId: string){
     const user = await User.findOne({clerkId})
     if(!user) throw new Error("user not found")
     const deletedUser = await User.findOneAndDelete({clerkId})
-    return deletedUser
+    return JSON.parse(JSON.stringify(deletedUser))
   }catch(err){
     handleError(err)
   }
