@@ -51,6 +51,7 @@ const mainContent = () => {
   const [personality, setPersonality] = useState('')
   const [holidayType, setHolidayType] = useState('')
   const [ans, setAns] = useState('')
+  const [gift, setGift] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [generating, setGenerating] = useState(false)
 
@@ -293,7 +294,10 @@ const mainContent = () => {
                         <Input
                             type="string"
                             placeholder="Enter the final gift choice"
-                            {...field}
+                            value={gift}
+                            onChange={(e)=>{
+                              setGift(e.target.value)
+                            }}
                             className="h-12 p-4 border-2 border-gray-700 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-gray-700 transition-all"
                         />
                       </FormControl>
@@ -312,7 +316,7 @@ const mainContent = () => {
                 onClick={async () => {
                   console.log("submit button triggered")
                   setSubmitting(true)
-                  const content = {holidayType, age, gender, personality, hint, ans}
+                  const content = {holidayType, age, gender, personality, hint, ans, gift}
                   console.log(clerkId)
                   console.log(content)
                   router.push('/profile')
