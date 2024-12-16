@@ -76,13 +76,13 @@ const mainContent = () => {
   const onSubmit = (data: createPromptType) => {
     console.log("submit button triggered")
     console.log(data);
-    createPrompt(clerkId, data)
+    // createPrompt(clerkId, data)
     router.push("/profile")
   };
 
   return (
       <FormProvider {...form}>
-        <form onSubmit={onSubmit} className="p-6 space-y-8 bg-gray-100 rounded-lg shadow-lg">
+        <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-8 bg-gray-100 rounded-lg shadow-lg">
           <h1 className="text-3xl font-bold text-center text-gray-900">Gift Form</h1>
           <p className="text-center text-gray-600">
             Fill out the form below to customize your gift details. Let your creativity shine!
