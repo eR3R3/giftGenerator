@@ -10,7 +10,7 @@ import {createUserType} from "@/constants/types";
 
 export async function POST (req: Request) {
   console.log("called")
-  const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET
+  const WEBHOOK_SECRET = process.env.SIGNING_SECRET
   if (!WEBHOOK_SECRET) {
     return new Response("Webhook secret is missing", { status: 500 });
   }
