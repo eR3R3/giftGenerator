@@ -9,34 +9,47 @@ import { createUser, deleteUser, updateUser } from "@/lib/actions/user.actions";
 import {createUserType} from "@/constants/types";
 
 export async function POST (req: Request) {
-  console.log("called")
-  const WEBHOOK_SECRET = process.env.SIGNING_SECRET
-  if (!WEBHOOK_SECRET) {
-    return new Response("Webhook secret is missing", { status: 500 });
-  }
-  const header = await headers()
-  const svix_id = header.get("svix-id");
-  const svix_time = header.get("svix-timestamp")
-  const svix_signature = header.get("svix-signature")
-  console.log({ svix_id, svix_signature, svix_time });
+  const SIGNING_SECRET = process.env.SIGNING_SECRET
 
+  if (!SIGNING_SECRET) {
+    throw new Error('Error: Please add SIGNING_SECRET from Clerk Dashboard to .env or .env.local')
+  }
+
+  // Create new Svix instance with secret
+  const wh = new Webhook(SIGNING_SECRET)
+
+  // Get headers
+  const headerPayload = await headers()
+  const svix_id = headerPayload.get('svix-id')
+  const svix_timestamp = headerPayload.get('svix-timestamp')
+  const svix_signature = headerPayload.get('svix-signature')
+
+  // If there are no headers, error out
+  if (!svix_id || !svix_timestamp || !svix_signature) {
+    return new Response('Error: Missing Svix headers', {
+      status: 400,
+    })
+  }
+
+  // Get body
   const payload = await req.json()
   const body = JSON.stringify(payload)
 
-  if(!svix_id||!svix_signature||!svix_time) return new Response("svix-head doesn't fit", {status: 400})
-  const wh = new Webhook(WEBHOOK_SECRET as string)
   let event: WebhookEvent
-  try{
+
+  // Verify payload with headers
+  try {
     event = wh.verify(body, {
-      "svix-id": svix_id,
-      "svix-timestamp": svix_time,
-      "svix-signature": svix_signature
+      'svix-id': svix_id,
+      'svix-timestamp': svix_timestamp,
+      'svix-signature': svix_signature,
     }) as WebhookEvent
+  } catch (err) {
+    console.error('Error: Could not verify webhook:', err)
+    return new Response('Error: Verification error', {
+      status: 400,
+    })
   }
-  catch(err){
-    return new Response(err as string, {status: 400})
-  }
-  console.log("pass the verify")
   const {id} = event.data
   const type = event.type
 
