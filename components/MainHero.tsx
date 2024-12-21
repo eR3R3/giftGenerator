@@ -5,7 +5,7 @@ import {Spotlight} from "@/components/ui/spotlight";
 
 export default function MainHero() {
   return (
-      <div className='h-screen w-full mb-48'>
+      <div className='h-screen w-full mb-24'>
         <HeroHighlight>
           <Spotlight
               className="-top-40 left-0 md:left-20 md:-top-56"

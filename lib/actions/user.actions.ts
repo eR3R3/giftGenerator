@@ -1,3 +1,5 @@
+// @ts-ignore
+
 'use server'
 
 import {handleError} from "@/lib/utils"
@@ -5,7 +7,6 @@ import {createPromptType, createUserType, updateUserType} from "@/constants/type
 import connectToDB from "@/lib/database/mongoose";
 import User from "@/lib/database/models/user.model";
 import Prompt from "@/lib/database/models/prompt.model";
-import {Schema, model, models} from 'mongoose';
 
 
 export async function connectToDatabase(){
@@ -23,18 +24,11 @@ export async function createUser(user: createUserType){
   }
 }
 
-export async function findUser(clerkId: string){
-  try{
+export async function findUser(clerkId?: string){
     await connectToDB()
     const user = await User.findOne({clerkId})
     user && console.log("find user successfully")
-    if(!user){
-      throw new Error("User not found")
-    }
-    return user
-  }catch(err){
-    handleError(err)
-  }
+    return JSON.parse(JSON.stringify(user))
 }
 
 export async function updateUser(clerkId: string, user: updateUserType){
@@ -80,27 +74,71 @@ export async function createPrompt(clerkId: string, prompt: createPromptType){
   }
 }
 
-export async function deletePrompt(prompt: any){
+export async function findPrompt(objectId: any){
   try{
     await connectToDB()
-    const ObjectId = prompt.ObjectId
-    const deletedPrompt = await Prompt.findOneAndDelete({ObjectId})
-    if(!deletedPrompt) throw new Error("delete failed or no prompt found")
-    return deletedPrompt
+    const foundPrompt = await Prompt.findOne({objectId})
+    if(!foundPrompt) throw new Error("delete failed or no prompt found")
+    return JSON.parse(JSON.stringify(foundPrompt))
   }catch(err){
     handleError(err)
   }
 }
 
-export async function findPrompt(clerkId: string, prompt: createPromptType){
+export async function deletePrompt(ObjectId: any){
   try{
     await connectToDB()
-    Object.assign(prompt,{clerkId})
-    const foundPrompt = Prompt.findOne({prompt})
-    if(!foundPrompt) throw new Error("prompt not found")
-    return foundPrompt
+    console.log(ObjectId)
+    const deletedPrompt = await Prompt.findOneAndDelete({_id:ObjectId})
+    console.log("deleted successfully")
+    if(!deletedPrompt) throw new Error("delete failed")
+    return JSON.parse(JSON.stringify(deletedPrompt))
   }catch(err){
     handleError(err)
   }
 }
 
+
+export async function findAllPrompts(clerkId: string){
+    await connectToDB()
+    console.log(clerkId)
+    const user = await User.findOne({clerkId})
+    const creatorId = user._id
+    console.log(creatorId)
+    if(!creatorId) throw new Error("creatorId not found")
+    let allPrompts = (await Prompt.find({creatorId}))
+    if(allPrompts) console.log("find allPrompts")
+    return JSON.parse(JSON.stringify(allPrompts))
+}
+
+export async function findAllPromptsBig(){
+  await connectToDB()
+  const allPrompts = await Prompt.find({isPublic: true})
+  return JSON.parse(JSON.stringify(allPrompts))
+}
+
+export async function addScore(promptObjectId: any, score: number){
+  await connectToDB()
+  console.log(promptObjectId)
+  console.log("added score of the prompt", score)
+  const ratedPrompt = await Prompt.findOneAndUpdate({_id: promptObjectId},  { $push: { ratings: score } } , {new: true})
+  return JSON.parse(JSON.stringify(ratedPrompt))
+}
+
+export async function calculateAverageRating(objectId: any) {
+  try {
+    await connectToDB();
+    const prompt = await Prompt.findOne({ _id: objectId });
+    if (!prompt) throw new Error("No user found or calculation failed");
+
+    const ratings = prompt.ratings;
+    if (ratings.length === 0) {
+      return 0;
+    }
+
+    const sum = ratings.reduce((total: number, rating: number) => total + rating, 0);
+    return sum / ratings.length
+  } catch (err) {
+    handleError(err);
+  }
+}

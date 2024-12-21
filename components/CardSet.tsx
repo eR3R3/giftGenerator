@@ -2,7 +2,7 @@ import React from 'react';
 import { HoverEffect } from "./ui/card-hover-effect";
 import {projects} from '@/constants/index'
 
-const CardSet = () => {
+const CardSet = ({items}:{items?: any}) => {
   return (
     <div className="w-full h-[80vh] mx-auto">
       <HoverEffect items={projects}/>

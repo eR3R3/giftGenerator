@@ -1,15 +1,35 @@
 import {Schema, model, models} from 'mongoose';
 
 const UserSchema = new Schema({
-  creatorId: {type: Schema.Types.ObjectId, ref: 'User'},
-  creator: {type: String, required: true},
-  clerkId: {type: String, required: true},
-  gift: {type: String, required: true},
-  holidayType: {type: String, required: true},
-  age: {type: Number, required: true},
-  personality: {type: String, required: true},
-  hint:{type: String, required: true}
+  creatorId: {type: Schema.Types.ObjectId, ref: 'User', unique: false},
+  creator: {type: String, required: true, unique: false},
+  clerkId: {type: String, required: true, unique: false},
+  gift: {type: String, required: true, unique: false},
+  holidayType: {type: String, required: true, unique: false},
+  age: {type: Number, required: true, unique: false},
+  personality: {type: String, required: true, unique: false},
+  hint:{type: String, required: true, unique: false},
+  ans:{type: String, required: true, unique: false},
+  ratings: {type: [Number], required: true, unique: false, default: []},
+  isPublic: {type: Boolean, default: false, unique: false}
 })
 
-const Prompt = models.Prompt || model("Prompt", UserSchema)
+delete models.Prompt;
+// 重新定义模型
+const Prompt = models.Prompt || model("Prompt", UserSchema);
 export default Prompt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

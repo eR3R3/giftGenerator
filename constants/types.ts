@@ -11,6 +11,7 @@ export type updateUserType = {
 }
 
 export type createPromptType = {
+  isPublic: boolean
   gift: string,
   holidayType: string,
   age: number,

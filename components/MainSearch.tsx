@@ -4,11 +4,11 @@ import { PlaceholdersAndVanishInput } from "./ui/placeholders-and-vanish-input";
 
 export default function MainSearch() {
   const placeholders = [
-    "What's the first rule of Fight Club?",
-    "Who is Tyler Durden?",
-    "Where is Andrew Laeddis Hiding?",
-    "Write a Javascript method to reverse a string",
-    "How to assemble your own PC?",
+    "where can I see the tutorial",
+    "Who are the team members",
+    "Is there a way to join the team?",
+    "How do you guys learn TypeScript",
+    "Where can I submit my advices?",
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,9 +19,9 @@ export default function MainSearch() {
     console.log("submitted");
   };
   return (
-      <div className="h-[80vh] flex flex-col justify-center  items-center px-4">
+      <div className="h-[60vh] flex flex-col justify-center  items-center px-4">
         <h2 className="mb-10 sm:mb-10 text-xl text-center sm:text-5xl dark:text-white text-black">
-          Ask Aceternity UI Anything
+          Ask Anything you want to know about our team or the App
         </h2>
         <PlaceholdersAndVanishInput
             placeholders={placeholders}

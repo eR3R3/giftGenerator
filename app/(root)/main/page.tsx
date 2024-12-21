@@ -1,10 +1,9 @@
 import React from 'react';
 import SideBar from "@/components/SideBar";
-import HeroButton from "@/components/HeroButton";
-import CardSet from "@/components/CardSet";
 import MainHero from "@/components/MainHero";
-import { Spotlight } from "@/components/ui/spotlight";
 import MainSearch from "@/components/MainSearch";
+import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
+import {movingCardIndex} from "@/constants";
 
 const Main = () => {
   return (
@@ -17,11 +16,27 @@ const Main = () => {
 
 const mainContent= () =>{
   return (
-    <div>
-      <MainHero />
-      <CardSet />
-      <MainSearch />
-    </div>
+      <div>
+        <MainHero/>
+        <div className="h-[60rem] rounded-md flex flex-col antialiased bg-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
+          <InfiniteMovingCards
+              items={movingCardIndex}
+              direction="right"
+              speed="normal"
+          />
+          <InfiniteMovingCards
+              items={movingCardIndex}
+              direction="left"
+              speed="normal"
+          />
+          <InfiniteMovingCards
+              items={movingCardIndex}
+              direction="right"
+              speed="normal"
+          />
+        </div>
+        <MainSearch/>
+      </div>
   )
 }
 
