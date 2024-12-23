@@ -38,15 +38,16 @@ const mainContent= () => {
 
   return (
       <div>
-        <TextGenerateEffect className="font-extrabold text-9xl pl-10" words={wordsOne} />
-        <div className='flex justify-start px-8 gap-8'>
+        <TextGenerateEffect className="font-extrabold text-9xl pl-10" words={wordsOne}/>
+        <TextGenerateEffect className="font-extrabold text-9xl pl-10" words={wordsTwo}/>
+        <div className='flex justify-start px-8 gap-12 w-full h-full flex-wrap '>
           {allPrompts.map((prompt, id) => {
             return (
                 <ProfileCard
-                prop={prompt}
-                id={id}
-                key={id}
-                hasRating={false}/>
+                    prop={prompt}
+                    id={id}
+                    hasRating={false}
+                    key={id}/>
             )
           })}
         </div>

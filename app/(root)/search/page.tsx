@@ -83,7 +83,7 @@ const mainContent= () =>{
               className='block w-full rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0; peer'
           />
         </div>
-        <div className='flex justify-between px-8 w-full h-full flex-wrap '>
+        <div className='flex justify-start px-8 gap-12 w-full h-full flex-wrap  '>
           {searchedResults.map((prompt, id) => {
             return (
                 <ProfileCard
