@@ -55,34 +55,101 @@ export const projects = [
   },
 ];
 
-export const movingCardIndex = [
+export const movingCardIndex0 = [
   {
     quote:
-        "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair.",
-    name: "Charles Dickens",
-    title: "A Tale of Two Cities",
+        "This app made finding the perfect gift so easy! I was amazed at how thoughtful and personalized the options were.",
+    name: "Emma W.",
+    title: "Satisfied Customer",
   },
   {
     quote:
-        "To be, or not to be, that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take Arms against a Sea of troubles, And by opposing end them: to die, to sleep.",
-    name: "William Shakespeare",
-    title: "Hamlet",
-  },
-  {
-    quote: "All that we see or seem is but a dream within a dream.",
-    name: "Edgar Allan Poe",
-    title: "A Dream Within a Dream",
+        "I’ve never had such a smooth experience when picking out gifts. My friends loved them!",
+    name: "James D.",
+    title: "Happy User",
   },
   {
     quote:
-        "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.",
-    name: "Jane Austen",
-    title: "Pride and Prejudice",
+        "The variety and creativity of the gifts are unmatched. I’ll definitely be using this app again!",
+    name: "Sophia L.",
+    title: "Repeat Customer",
   },
   {
     quote:
-        "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world.",
-    name: "Herman Melville",
-    title: "Moby-Dick",
+        "Absolutely fantastic service! The gifts arrived beautifully packaged and on time.",
+    name: "Liam T.",
+    title: "Grateful Customer",
+  },
+  {
+    quote:
+        "This app has completely changed the way I think about gift-giving. It’s effortless and delightful!",
+    name: "Olivia R.",
+    title: "Gift Enthusiast",
+  },
+];
+
+export const movingCardIndex1 = [
+  {
+    quote:
+        "The personalization options are incredible. I could add my own touch to every gift!",
+    name: "Mia C.",
+    title: "Loyal Customer",
+  },
+  {
+    quote:
+        "The AI suggestions were spot on! I found something perfect for my mom within minutes.",
+    name: "Noah H.",
+    title: "Tech Enthusiast",
+  },
+  {
+    quote:
+        "I was blown away by the unique selection of gifts. You can tell a lot of thought went into this app.",
+    name: "Ava G.",
+    title: "Impressed User",
+  },
+  {
+    quote:
+        "I loved being able to filter gifts based on my budget and preferences. It saved me so much time!",
+    name: "Lucas F.",
+    title: "Time-Saver",
+  },
+  {
+    quote:
+        "The ability to customize and preview the gifts was a game-changer for me.",
+    name: "Charlotte B.",
+    title: "Creative User",
+  },
+];
+
+export const movingCardIndex2 = [
+  {
+    quote:
+        "I’ve recommended this app to all my friends. It’s a must-have for anyone who loves giving thoughtful gifts.",
+    name: "Harper J.",
+    title: "Devoted Fan",
+  },
+  {
+    quote:
+        "I can’t stop raving about how easy and fun this app is to use. It takes the stress out of gift shopping!",
+    name: "Elijah M.",
+    title: "Stress-Free Shopper",
+  },
+  {
+    quote:
+        "I’ve never seen my family so happy with the gifts I chose for them. This app is pure magic!",
+    name: "Isabella K.",
+    title: "Gift Wizard",
+  },
+  {
+    quote:
+        "Every gift I’ve ordered has been a hit. Thank you for making me look like the ultimate gift-giver!",
+    name: "Mason P.",
+    title: "Proud Giver",
+  },
+  {
+    quote:
+        "The customer support team was so helpful when I had questions. Amazing service all around!",
+    name: "Evelyn Z.",
+    title: "Grateful Customer",
   },
 ];

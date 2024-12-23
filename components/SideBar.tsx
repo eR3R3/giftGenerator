@@ -83,7 +83,7 @@ export default function SideBar({ children }: { children: React.ReactNode }) {
 export const Logo = () => {
   return (
       <Link
-          href="#"
+          href="/main"
           className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
       >
         <div
@@ -93,7 +93,7 @@ export const Logo = () => {
             animate={{ opacity: 1 }}
             className="font-medium text-black dark:text-white whitespace-pre"
         >
-          Acet Labs
+          Gift Generator
         </motion.span>
       </Link>
   );
