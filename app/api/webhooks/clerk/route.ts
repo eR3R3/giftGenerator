@@ -68,12 +68,11 @@ export async function POST (req: Request) {
 
   if(type==="user.updated"){
     console.log("trigger user.updated")
-    const { id, image_url, first_name, last_name, username } = event.data
+    const { id, image_url, first_name} = event.data
     const user = {
-      firstName: first_name!,
-      lastName: last_name!,
-      username: username!,
-      photo: image_url!,
+      username: first_name!,
+      photo: image_url,
+      clerkId: id,
     };
     const updatedUser = await updateUser(id, user);
     return NextResponse.json({ message: "OK", user: updatedUser });

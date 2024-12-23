@@ -50,6 +50,7 @@ export async function deleteUser(clerkId: string){
   try{
     await connectToDB()
     const user = await User.findOne({clerkId})
+    console.log("user deleted processing")
     if(!user) throw new Error("user not found")
     const deletedUser = await User.findOneAndDelete({clerkId})
     return JSON.parse(JSON.stringify(deletedUser))
